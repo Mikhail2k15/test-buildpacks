@@ -32,7 +32,7 @@ jobs:
 
           pack build \
            ${{ env.EVOAR_URI }}/${{ env.IMAGE_NAME }}:build${{ github.sha }} \
-            --path . \
+            --path nodejs \
             --builder ${{env.HEROKU_BUILDER}} \
 
       - name: Log in to Evolution Artifact Registry
