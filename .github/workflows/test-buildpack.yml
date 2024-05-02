@@ -57,6 +57,14 @@ jobs:
       - name: Pushing to registry using Docker
         shell: bash
         run: |
-          docker push ${{ env.EVOAR_URI }}/heroku-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
-          docker push ${{ env.EVOAR_URI }}/paketo-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+          docker push ${{ env.EVOAR_URI }}/heroku-${{ env.IMAGE_NAME }}:build${{ github.sha }}
+
+      - name: Pushing to registry using Docker
+        shell: bash
+        run: |
+          docker push ${{ env.EVOAR_URI }}/paketo-${{ env.IMAGE_NAME }}:build${{ github.sha }}
+
+      - name: Pushing to registry using Docker
+        shell: bash
+        run: |
           docker push ${{ env.EVOAR_URI }}/msft-${{ env.IMAGE_NAME }}:build${{ github.sha }}
