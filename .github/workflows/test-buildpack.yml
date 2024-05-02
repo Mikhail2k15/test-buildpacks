@@ -6,7 +6,7 @@ on:
     paths:
       - "!.github/workflows/**"
       - ".github/workflows/test-buildpack.yml"
-      - "nodejs"
+      - "./nodejs"
       - "README.md"
 env:
   EVOAR_URI: buildpacks.cr.cloud.ru
