@@ -6,6 +6,8 @@ on:
     paths:
       - "!.github/workflows/**"
       - ".github/workflows/test-buildpack.yml"
+      - "nodejs"
+      - "README.md"
 env:
   EVOAR_URI: buildpacks.cr.cloud.ru
   IMAGE_NAME: heroku-nodejs
