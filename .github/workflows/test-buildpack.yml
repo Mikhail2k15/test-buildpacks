@@ -10,9 +10,9 @@ on:
       - "README.md"
 env:
   EVOAR_URI: buildpacks.cr.cloud.ru
-  IMAGE_NAME: heroku-nodejs
+  IMAGE_NAME: nodejs
   MSFT_BUILDER: mcr.microsoft.com/oryx/builder:debian-bullseye-20240124.1
-  PACKETO_BUILDER: paketobuildpacks/builder-jammy-full
+  PAKETO_BUILDER: paketobuildpacks/builder-jammy-full
   HEROKU_BUILDER: heroku/builder:22
 jobs:
   build:
@@ -33,9 +33,19 @@ jobs:
           pack config experimental true
 
           pack build \
-           ${{ env.EVOAR_URI }}/${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+           ${{ env.EVOAR_URI }}/heroku-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
             --path nodejs \
             --builder ${{env.HEROKU_BUILDER}} \
+
+          pack build \
+           ${{ env.EVOAR_URI }}/paketo-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+            --path nodejs \
+            --builder ${{env.PAKETO_BUILDER}} \
+
+          pack build \
+           ${{ env.EVOAR_URI }}/msft-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+            --path nodejs \
+            --builder ${{env.MSFT_BUILDER}} \
 
       - name: Log in to Evolution Artifact Registry
         uses: docker/login-action@v2
@@ -47,4 +57,6 @@ jobs:
       - name: Pushing to registry using Docker
         shell: bash
         run: |
-          docker push ${{ env.EVOAR_URI }}/${{ env.IMAGE_NAME }}:build${{ github.sha }}
+          docker push ${{ env.EVOAR_URI }}/heroku-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+          docker push ${{ env.EVOAR_URI }}/paketo-${{ env.IMAGE_NAME }}:build${{ github.sha }} \
+          docker push ${{ env.EVOAR_URI }}/msft-${{ env.IMAGE_NAME }}:build${{ github.sha }}
