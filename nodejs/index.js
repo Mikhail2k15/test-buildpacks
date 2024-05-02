@@ -6,7 +6,7 @@ const port = 3000;
 const server = createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World from NodeJS App');
+    res.end('Hello World from NodeJS App. This app was built using build pack');
 });
 
 server.listen(port, hostname, () => {
